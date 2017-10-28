@@ -14,23 +14,25 @@ kthoom.ipfs = {
         this.ipfsInstance = window.IpfsApi();
         this.ipfsInstanceInitated =true;
     },
-    ipfsHashWindow: function () {
+    LoadHash: function (ipfshash) {
         if(!kthoom.ipfs.ipfsInstance)
         {
             kthoom.ipfs.ipfsInit();
         }
-        var ipfshash = window.prompt("Please Enter The IPFS hash of the book","QmUnxk13vHYDLytanzzNopdtKiVwURTd7TXqmzGgESyvZA");
-        kthoom.ipfs.ipfsInstance.cat(ipfshash, function(err, ComicStream) {
+        kthoom.ipfs.ipfsInstance.cat(ipfshash, function (err, ComicStream) {
             var buffers = [];
-            ComicStream.on('data', function(buffer) {
+            ComicStream.on('data', function (buffer) {
                 buffers.push(buffer);
             });
-            ComicStream.on('end', function() {
+            ComicStream.on('end', function () {
                 var buffer = kthoom.ipfs.ipfsInstance.Buffer.concat(buffers).buffer;
                 loadFromArrayBuffer(buffer)
             });
             if (err) throw err;
 
         });
+    }, ipfsHashWindow: function () {
+        var ipfshash = window.prompt("Please Enter The IPFS hash of the book","QmUnxk13vHYDLytanzzNopdtKiVwURTd7TXqmzGgESyvZA");
+        this.LoadHash(ipfshash);
     }
 };
