@@ -43,23 +43,11 @@ kthoom.ipfs = {
         }
         function IpfsNodeNotRunning() {
             var url_withHash = window.location.origin + "/ipfs/" + ipfshash;
-            var httpRequest = new XMLHttpRequest();
-            function RunRequest() {
-                httpRequest.onreadystatechange = GetContents();
-                httpRequest.responseType = "arraybuffer";
-                httpRequest.open('GET', url_withHash);
-                httpRequest.send();
-            }
-            function GetContents() {
-                if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                    if (httpRequest.status === 200) {
-                        loadFromArrayBuffer(httpRequest.response);
-                    } else {
-                        alert('There was a problem with the request.');
-                    }
-                }
-            }
-            RunRequest();
+            fetch(url_withHash).then(function(response){
+                response.arrayBuffer().then(function(bufferme){
+                    loadFromArrayBuffer(bufferme);
+                });
+            });
         }
     }, ipfsHashWindow: function () {
         var ipfshash = window.prompt("Please Enter The IPFS hash of the book","QmUnxk13vHYDLytanzzNopdtKiVwURTd7TXqmzGgESyvZA");
