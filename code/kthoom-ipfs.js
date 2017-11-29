@@ -40,26 +40,26 @@ kthoom.ipfs = {
                 if (err) throw err;
 
             });
-            function IpfsNodeNotRunning() {
-                var url_withHash = window.location.origin + "/ipfs/" + ipfshash;
-                var httpRequest = new XMLHttpRequest();
-                function RunRequest() {
-                    httpRequest.onreadystatechange = GetContents();
-                    httpRequest.open('GET', url_withHash);
-                    httpRequest.responseType = "arraybuffer";
-                    httpRequest.send();
-                }
-                function GetContents() {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            loadFromArrayBuffer(httpRequest.response);
-                        } else {
-                            alert('There was a problem with the request.');
-                        }
+        }
+        function IpfsNodeNotRunning() {
+            var url_withHash = window.location.origin + "/ipfs/" + ipfshash;
+            var httpRequest = new XMLHttpRequest();
+            function RunRequest() {
+                httpRequest.onreadystatechange = GetContents();
+                httpRequest.responseType = "arraybuffer";
+                httpRequest.open('GET', url_withHash);
+                httpRequest.send();
+            }
+            function GetContents() {
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        loadFromArrayBuffer(httpRequest.response);
+                    } else {
+                        alert('There was a problem with the request.');
                     }
                 }
-                RunRequest();
             }
+            RunRequest();
         }
     }, ipfsHashWindow: function () {
         var ipfshash = window.prompt("Please Enter The IPFS hash of the book","QmUnxk13vHYDLytanzzNopdtKiVwURTd7TXqmzGgESyvZA");
