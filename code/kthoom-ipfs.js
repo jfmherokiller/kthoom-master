@@ -19,7 +19,7 @@ kthoom.ipfs = {
         {
             kthoom.ipfs.ipfsInit();
         }
-        kthoom.ipfs.ipfsInstance.ping().id(function(err,identity){
+        kthoom.ipfs.ipfsInstance.id(function(err,identity){
             if(err !== null)
             {
                 IpfsNodeNotRunning();
