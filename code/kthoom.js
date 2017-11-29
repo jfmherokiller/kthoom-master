@@ -795,9 +795,10 @@ function init() {
     }
     HashLoader();
 }
+
 function HashLoader() {
     var hashcontent = window.location.hash.substr(1);
-    if(hashcontent.lastIndexOf("ipfs", 0)=== 0) {
+    if (hashcontent.lastIndexOf("ipfs", 0) === 0) {
         var ipfshash = hashcontent.substr(4);
         kthoom.ipfs.LoadHash(ipfshash);
     }
